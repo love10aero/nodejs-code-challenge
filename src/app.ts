@@ -44,7 +44,6 @@ app.post('/login', async (req: Request, res: Response) => {
         expiresInMins: 30, // optional, defaults to 60
       }),
   })
-  // Check if login was successful
     .then((response) => response.json() as Promise<User>)
     .then((data) => {
       // Check if login was successful
@@ -52,7 +51,10 @@ app.post('/login', async (req: Request, res: Response) => {
         // send unauthorized status response
         res.status(401).send(data);
       }
-      res.send(data);
+      else{
+        // send ok status response with user data
+        res.status(200).send(data);
+      }
     })
     .catch((error) => console.error('Error loggin in:', error));
 });
