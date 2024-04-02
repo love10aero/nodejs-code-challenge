@@ -9,11 +9,13 @@ export const blockUnauthorizedRequest = async (req: Request, res: Response, next
     if (!req.headers.authorization) {
         // send unauthorized status response
         res.status(401).send();
+        return;
     }
     const userId = await getAuthUserIdbyToken(req.headers.authorization || '');
     if (!userId) {
         // send unauthorized status response
         res.status(401).send('Invalid token');
+        return;
     }
     else {
         // send ok status response with user data
